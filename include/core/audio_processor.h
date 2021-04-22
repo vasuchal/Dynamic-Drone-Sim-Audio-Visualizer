@@ -6,9 +6,24 @@
 namespace audio {
     class AudioProcessor{
     public:
+        /**
+          * Constructor that sets initial state of app and takes in a file path
+          */
         AudioProcessor(std::string audio_file_path);
+
+        /**
+          * Empty Constructor for testing and taking in user input for songs
+          */
         AudioProcessor();
+
+        /**
+          * Works with draw function and will display visual components relating to the magnitude of freqs of audio at a given slice
+          */
         void Display();
+
+        /**
+          * Will update magnitude spectrum to hold new values as song plays real-time 
+          */
         void AdvanceOneFrame();
     private:
         cinder::audio::MonitorSpectralNodeRef spectral_;
