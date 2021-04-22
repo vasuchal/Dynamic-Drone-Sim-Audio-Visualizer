@@ -1,8 +1,29 @@
-//
-// Created by Vasu Chalasani on 4/21/21.
-//
+#pragma once
 
-#ifndef AUDIO_VISUALIZER_AUDIO_VISUALIZER_H
-#define AUDIO_VISUALIZER_AUDIO_VISUALIZER_H
+#include <core/audio_processor.h>
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
+#include "cinder/audio/audio.h"
 
-#endif //AUDIO_VISUALIZER_AUDIO_VISUALIZER_H
+namespace audio {
+
+/**
+ * An app for visualizing inputted audio file.
+ */
+    class AudioVisualizerApp : public ci::app::App {
+    public:
+        AudioVisualizerApp();
+
+        void draw() override;
+        void update() override;
+
+        // provided that you can see the entire UI on your screen.
+        const int kWindowSize = 875;
+        const int kMargin = 100;
+
+    private:
+        AudioProcessor processor_;
+    };
+
+} 
