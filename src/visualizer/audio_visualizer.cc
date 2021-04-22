@@ -3,18 +3,17 @@
 //
 
 #include "../../include/visualizer/audio_visualizer.h"
-//TODO: linker errors
 namespace audio {
 
     AudioVisualizerApp::AudioVisualizerApp() {
-        processor_ = AudioProcessor();
+        //TODO: how to get rid of large path
+        processor_ = AudioProcessor("/Users/vasudhachalasani/CLionProjects/Cinder/my-projects/final-project-vasuchal/audio_files/CantinaBand60.wav");
         ci::app::setWindowSize(kWindowSize, kWindowSize);
     }
 
     void AudioVisualizerApp::draw() {
         ci::Color background_color("black");
         ci::gl::clear(background_color);
-
         processor_.Display();
     }
 
