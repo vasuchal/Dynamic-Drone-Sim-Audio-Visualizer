@@ -53,7 +53,7 @@ list(APPEND CORE_SOURCE_FILES)
 
 list(APPEND SOURCE_FILES    src/core/audio_processor.cc
                             src/visualizer/audio_visualizer.cc
-                            src/visualizer/circle.cc
+        src/visualizer/concentric_circle.cc
                             src/visualizer/star.cc
         )
 
