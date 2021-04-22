@@ -49,10 +49,13 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES src/core/audio_processor.cc)
+list(APPEND CORE_SOURCE_FILES)
 
-list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
-                            src/visualizer/audio_visualizer.cc)
+list(APPEND SOURCE_FILES    src/core/audio_processor.cc
+                            src/visualizer/audio_visualizer.cc
+                            src/visualizer/circle.cc
+                            src/visualizer/star.cc
+        )
 
 list(APPEND TEST_FILES tests/audio_processor_tests.cc)
 
