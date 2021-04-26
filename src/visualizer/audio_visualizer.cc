@@ -1,13 +1,11 @@
-//
-// Created by Vasu Chalasani on 4/21/21.
-//
+#include <visualizer/audio_visualizer.h>
+#include "cinder/audio/audio.h"
 
-#include "../../include/visualizer/audio_visualizer.h"
 namespace audio {
 
+    using namespace cinder::audio;
     AudioVisualizerApp::AudioVisualizerApp() {
-        //TODO: how to get rid of large path
-        processor_ = AudioProcessor("/Users/vasudhachalasani/CLionProjects/Cinder/my-projects/final-project-vasuchal/audio_files/CantinaBand60.wav");
+        processor_ = AudioProcessor("assets/CantinaBand60.wav");
         ci::app::setWindowSize(kWindowSize, kWindowSize);
     }
 
