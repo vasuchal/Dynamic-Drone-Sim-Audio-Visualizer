@@ -1,10 +1,16 @@
-#include <cinder/audio/Context.h>
+#include "cinder/audio/Context.h"
 #include "cinder/audio/audio.h"
 #include "../../include/core/audio_processor.h"
+#include "cinder/app/App.h"
+
+#include "../../include/core/audio_processor.h"
+
 
 namespace audio {
 
     using namespace cinder::audio;
+    using cinder::app::KeyEvent;
+    
     AudioProcessor::AudioProcessor(std::string file_path) {
         bin_count_ = 0;
         audio::SourceFileRef sourceFile = audio::load(cinder::loadFile(file_path ) );
