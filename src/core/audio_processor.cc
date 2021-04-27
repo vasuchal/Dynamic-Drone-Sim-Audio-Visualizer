@@ -40,18 +40,16 @@ namespace audio {
 
         
         //TODO: cite and optimize performance
-        float maxAngle = M_PI * 7;
+        float maxAngle = M_PI * 20; //TODO: change this from 7 to 20, changing this creates bugger angles
         float anim = cinder::app::getElapsedFrames() / 30.0f;
-//        float red = 0.1;
-//        float green = 0.3;
-//        float blue = 0.5;
-        for (size_t i = 0; i < magnitudes_of_freq_.size(); i++) { //TODO: 128 spheres
-            float rel = i / (float) magnitudes_of_freq_.size(); //TODO: num of spheres
+        for (size_t i = 0; i < magnitudes_of_freq_.size() / 2; i++) { //TODO: 128 spheres //TODO: put frequency on outside or inside? //TODO: change this from whole to factor
+            float rel = i / (float) magnitudes_of_freq_.size() * 1.5; //TODO: num of spheres, also affects radius and how far out things are positioned
+            //TODO: 1.25 vs 1.5
             float angle = rel * maxAngle;
-            float h = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 2); //TODO: normalize using max of all slices
-            float h2 = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 1);
+            float h = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 2); //TODO: normalize using max of all slices, right now can reverse by doing minus as index is connected to position for code here so reversing loop changes nothing
+            float h2 = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 1); 
             float y = fabs(cos(rel * M_PI + anim)) * h; //TODO: change this 1 variable to represent height, range from 0 to 2
-            float r = rel * 2; //TODO: makes radius more spread out, make this a constant
+            float r = rel * 5; //TODO: makes radius more spread out, make this a constant //TODO: change this from 2 to 5
             ci::vec3 offset(r * cos(angle), y / 2, r * sin(angle)); //TODO: determines positioning of element
             ci::gl::pushModelMatrix();
             ci::gl::translate(offset); //TODO: positions elements in circle
@@ -60,9 +58,6 @@ namespace audio {
             ci::gl::color(ci::Color(cinder::CM_HSV, h2, 1, 1)); //TODO:change this to color based on frequency, help on how to do this 
             ci::gl::drawCube(glm::vec3(), glm::vec3(1)); //TODO: size of cube
             ci::gl::popModelMatrix();
-//            red = red + 0.005;
-//            green = green + 0.005;
-//            blue = blue + 0.005;
 
 //TODO: take waveform graph/complete iges/any vector and convert it into spectrogram (at time what energy is associated with frequency)
 //TODO: fft over an image(repetitive stuff) --> frequency is shorter
