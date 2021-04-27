@@ -27,8 +27,8 @@ namespace audio {
         void AdvanceOneFrame();
     private:
         cinder::audio::MonitorSpectralNodeRef spectral_;
-        int bin_count_;
         std::vector<float> magnitudes_of_freq_;
+        cinder::audio::VoiceRef audio_output_;
     };
 
 }  // namespace app

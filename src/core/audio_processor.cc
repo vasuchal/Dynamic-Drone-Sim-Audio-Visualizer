@@ -6,23 +6,21 @@
 
 
 namespace audio {
-//TODO: shortening this
+//TODO: shortening this (no putting cinder)
     using namespace cinder::audio;
     using namespace ci::gl;
     using cinder::app::KeyEvent;
-    
     AudioProcessor::AudioProcessor(std::string file_path) {
-        bin_count_ = 0;
         
         audio::SourceFileRef sourceFile = audio::load(cinder::app::loadAsset(file_path));
         auto ctx = cinder::audio::Context::master();
         spectral_ = ctx->makeNode( new audio::MonitorSpectralNode); //capable of fft (calculates everything) storing mag spec 
-        auto mBufferPlayer = ctx->makeNode( new audio::BufferPlayerNode() );
+        auto mBufferPlayer = ctx->makeNode( new audio::BufferPlayerNode());
         mBufferPlayer->loadBuffer(sourceFile);
         mBufferPlayer >> spectral_; //connecting an input to an output
         
-        audio::VoiceRef mVoice = audio::Voice::create(sourceFile);
-        mVoice->start(); //TODO: implement later
+        audio_output_ = audio::Voice::create(sourceFile);
+        audio_output_->start(); //TODO: implement later
         
         ctx->enable();
         mBufferPlayer->enable();
@@ -37,40 +35,36 @@ namespace audio {
         ci::gl::enableDepthWrite();
 
         ci::CameraPersp cam;
-        cam.lookAt(glm::vec3(3, 3, 3), glm::vec3(0, 0, 0));
+        cam.lookAt(glm::vec3(4, 4, 4), glm::vec3(0, 0, 0)); //T
         ci::gl::setMatrices(cam);
 
-        auto lambert = ci::gl::ShaderDef().lambert().color();
-        auto shader = ci::gl::getStockShader(lambert);
-        shader->bind();
-
-        int numSpheres = 128;
+        
+        //TODO: cite and optimize performance
+        int numSpheres = 256;
         float maxAngle = M_PI * 7;
         float anim = cinder::app::getElapsedFrames() / 30.0f;
-        float red = 1;
-        float green = 1;
-        float blue = 1;
-        for (int s = 0; s < numSpheres; ++s) {
+        float red = 0.1;
+        float green = 0.3;
+        float blue = 0.5;
+        for (int s = 0; s < numSpheres; s++) {
             float rel = s / (float) numSpheres;
             float angle = rel * maxAngle;
-            float y = fabs(cos(rel * M_PI + anim)) * 1; //TODO: change this 1 to represent height
-            float r = rel;
-            ci::vec3 offset(r * cos(angle), y / 2, r * sin(angle));
+            float y = fabs(cos(rel * M_PI + anim)) * 1; //TODO: change this 1 variable to represent height, range from 0 to 2
+            float r = rel * 2; //TODO: makes radius more spread out, make this a constant
+            ci::vec3 offset(r * cos(angle), y / 2, r * sin(angle)); //TODO: determines positioning of element
             ci::gl::pushModelMatrix();
-            ci::gl::translate(offset);
-            ci::gl::scale(glm::vec3(0.05f, y, 0.05f));
-            ci::gl::color(0.5, 0.5, 0.5); //TODO:change this to color based on frequency 
-            ci::gl::drawCube(glm::vec3(), glm::vec3(1));
+            ci::gl::translate(offset); //TODO: positions elements in circle
+            ci::gl::scale(glm::vec3(0.05f,y,0.05f)); //TODO: scales model matrix
+            ci::gl::color(red, green, blue); //TODO:change this to color based on frequency 
+            ci::gl::drawCube(glm::vec3(), glm::vec3(1)); //TODO: size of cube
             ci::gl::popModelMatrix();
-            red++;
-            green++;
-            blue++;
+            red = red + 0.005;
+            green = green + 0.005;
+            blue = blue + 0.005;
         }
     }
 
     void AudioProcessor::AdvanceOneFrame() {
         magnitudes_of_freq_ = spectral_->getMagSpectrum();
-        bin_count_ = spectral_->getNumBins();
-
     }
 }
