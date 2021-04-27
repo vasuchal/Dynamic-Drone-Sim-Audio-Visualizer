@@ -18,5 +18,7 @@ namespace audio {
     void AudioVisualizerApp::update() {
         processor_.AdvanceOneFrame();
     }
-
+    
+    //TODO: audio visualizer class combining both functionalities, visual components class 
 } 
+

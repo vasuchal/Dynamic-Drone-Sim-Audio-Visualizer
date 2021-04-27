@@ -29,6 +29,7 @@ namespace audio {
         cinder::audio::MonitorSpectralNodeRef spectral_;
         std::vector<float> magnitudes_of_freq_;
         cinder::audio::VoiceRef audio_output_;
+        float Remap(float value, float init_low, float init_high, float new_low, float new_high) const;
     };
 
 }  // namespace app
