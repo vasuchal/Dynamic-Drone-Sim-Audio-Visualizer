@@ -30,6 +30,8 @@ namespace audio {
         std::vector<float> magnitudes_of_freq_;
         cinder::audio::VoiceRef audio_output_;
         float Remap(float value, float init_low, float init_high, float new_low, float new_high) const;
+        int x_coordinate_;
+        int z_coordinate_;
     };
 
 }  // namespace app

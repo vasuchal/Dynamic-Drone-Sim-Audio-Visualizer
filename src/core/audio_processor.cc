@@ -8,10 +8,10 @@
 namespace audio {
 //TODO: shortening this (no putting cinder)
     using namespace cinder::audio;
-    using namespace ci::gl;
     using cinder::app::KeyEvent;
     AudioProcessor::AudioProcessor(std::string file_path) {
-        
+        x_coordinate_ = 1;
+        z_coordinate_ = 1;
         audio::SourceFileRef sourceFile = audio::load(cinder::app::loadAsset(file_path));
         auto ctx = cinder::audio::Context::master();
         spectral_ = ctx->makeNode( new audio::MonitorSpectralNode); //capable of fft (calculates everything) storing mag spec 
@@ -35,19 +35,19 @@ namespace audio {
         ci::gl::enableDepthWrite();
 
         ci::CameraPersp cam;
-        cam.lookAt(glm::vec3(4, 4, 4), glm::vec3(0, 0, 0)); //TODO: rotate camera
+        cam.lookAt(glm::vec3(15 * cos((x_coordinate_ / 4)), 10, 15 * sin((z_coordinate_ / 4))), glm::vec3(0, 0, 0)); //TODO: rotate camera
         ci::gl::setMatrices(cam);
 
         
         //TODO: cite and optimize performance
-        float maxAngle = M_PI * 20; //TODO: change this from 7 to 20, changing this creates bugger angles
+        float maxAngle = M_PI * 20; //TODO: change this from 7 to 20, changing this creates bigger angles, makes it from circles to star shaped
         float anim = cinder::app::getElapsedFrames() / 30.0f;
-        for (size_t i = 0; i < magnitudes_of_freq_.size() / 2; i++) { //TODO: 128 spheres //TODO: put frequency on outside or inside? //TODO: change this from whole to factor
-            float rel = i / (float) magnitudes_of_freq_.size() * 1.5; //TODO: num of spheres, also affects radius and how far out things are positioned
+        for (size_t i = 0; i < magnitudes_of_freq_.size(); i++) { 
+            float rel = i / (float) magnitudes_of_freq_.size()  * 1.5; //TODO: num of spheres, also affects radius and how far out things are positioned
             //TODO: 1.25 vs 1.5
             float angle = rel * maxAngle;
-            float h = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 2); //TODO: normalize using max of all slices, right now can reverse by doing minus as index is connected to position for code here so reversing loop changes nothing
-            float h2 = Remap(magnitudes_of_freq_[i], 0, 0.005, 0, 1); 
+            float h = Remap(magnitudes_of_freq_[i], 0, 0.01, 0, 2); //TODO: normalize using max of all slices, right now can reverse by doing minus as index is connected to position for code here so reversing loop changes nothing
+            float h2 = Remap(magnitudes_of_freq_[i], 0, 0.01, 0, 1); 
             float y = fabs(cos(rel * M_PI + anim)) * h; //TODO: change this 1 variable to represent height, range from 0 to 2
             float r = rel * 5; //TODO: makes radius more spread out, make this a constant //TODO: change this from 2 to 5
             ci::vec3 offset(r * cos(angle), y / 2, r * sin(angle)); //TODO: determines positioning of element
@@ -66,6 +66,8 @@ namespace audio {
     
     void AudioProcessor::AdvanceOneFrame() {
         magnitudes_of_freq_ = spectral_->getMagSpectrum();
+        x_coordinate_++;
+        z_coordinate_++;
     }
 
     float AudioProcessor::Remap(float value, float init_low, float init_high, float new_low, float new_high) const{
