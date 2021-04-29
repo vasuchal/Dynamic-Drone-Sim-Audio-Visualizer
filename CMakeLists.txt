@@ -55,7 +55,7 @@ list(APPEND CORE_SOURCE_FILES)
 
 list(APPEND SOURCE_FILES    src/core/audio_processor.cc
                             src/visualizer/audio_visualizer.cc
-                            src/visualizer/concentric_circle.cc
+                            src/visualizer/3d_visualizer.cc
         )
 
 list(APPEND TEST_FILES tests/audio_processor_tests.cc)
