@@ -5,7 +5,7 @@ namespace audio {
 
     using namespace cinder::audio;
     AudioVisualizerApp::AudioVisualizerApp() {
-        processor_ = AudioProcessor("assets/CantinaBand60.wav");
+        processor_ = AudioProcessor("assets/Montero.wav");
         ci::app::setWindowSize(kWindowSize, kWindowSize);
     }
 
