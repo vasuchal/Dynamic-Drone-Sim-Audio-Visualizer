@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "cinder/audio/audio.h"
-#include "audio_processor.h"
+#include "visualizer/3d_visualizer.h"
 
 namespace audio {
     class AudioProcessor{
@@ -29,9 +29,9 @@ namespace audio {
         cinder::audio::MonitorSpectralNodeRef spectral_;
         std::vector<float> magnitudes_of_freq_;
         cinder::audio::VoiceRef audio_output_;
-        float Remap(float value, float init_low, float init_high, float new_low, float new_high) const;
-        int x_coordinate_;
-        int z_coordinate_;
+        Visualizer3D visualizer_;
+//        int x_coordinate_;
+//        int z_coordinate_;
     };
 
 }  // namespace app

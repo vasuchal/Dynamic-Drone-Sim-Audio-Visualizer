@@ -1,19 +1,22 @@
 #pragma once
 
+#include <vector>
+
 namespace audio {
     class Visualizer3D{
     public:
         //TODO: add documentation
-        Visualizer3D(int x);
-        
         Visualizer3D();
 
         /**
           * Works with draw function and will display visual components relating to the magnitude of freqs of audio at a given slice
           */
-        void Display();
+        void Draw(std::vector<float> magnitudes_of_freq) const;
+        void Update();
     private:
-        
+        float Rescale(float value, float init_low, float init_high, float new_low, float new_high) const;
+        int x_coordinate_;
+        int z_coordinate_;
     };
 
 }
