@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/audio_processor.h>
+#include "core/audio_processor.h"
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -28,12 +28,20 @@ namespace audio {
           */
         void update() override;
 
+        /**
+          * Allows users to select 2d or 3d visualization.
+          */
+        void keyDown(ci::app::KeyEvent event) override;
+
         // provided that you can see the entire UI on your screen.
         const int kWindowSize = 875;
         const int kMargin = 100;
 
     private:
         AudioProcessor processor_;
+        int y_coordinate_;
+        int k3DYCoordinate = 10;
+        int k2DYCoordinate = 0;
     };
 
 } 
