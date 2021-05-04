@@ -1,4 +1,4 @@
-# Dynamic Multidimensional Drone Simulating Audio Visualizer
+# Dynamic Drone Simulating Audio Visualizer
 
 ## Overview
 This visualizer has the capability of creating a 2d or 3d visualizer depending on the user's choice for any sound file inputted. 
