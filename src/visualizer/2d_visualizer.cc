@@ -3,7 +3,6 @@
 #include "cinder/gl/gl.h"
 
 namespace audio {
-    //TODO: shorten ci::gl
     Visualizer2D::Visualizer2D() = default;
     void Visualizer2D::Draw(std::vector<float> magnitudes_of_freq) const {
         ci::gl::clear();

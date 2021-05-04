@@ -27,7 +27,7 @@ namespace audio {
         /**
           * Will update magnitude spectrum to hold new values as song plays real-time 
           */
-        void AdvanceOneFrame();
+        void AdvanceOneFrame(bool is_playing);
         
     private:
         cinder::audio::MonitorSpectralNodeRef spectral_;

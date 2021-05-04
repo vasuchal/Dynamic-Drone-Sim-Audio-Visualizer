@@ -40,6 +40,7 @@ namespace audio {
     private:
         AudioProcessor processor_;
         int y_coordinate_;
+        bool is_playing_;
         int k3DYCoordinate = 10;
         int k2DYCoordinate = 0;
     };

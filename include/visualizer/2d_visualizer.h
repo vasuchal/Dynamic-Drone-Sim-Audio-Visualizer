@@ -5,7 +5,6 @@
 namespace audio {
     class Visualizer2D{
     public:
-        //TODO: add documentation
         Visualizer2D();
 
         /**

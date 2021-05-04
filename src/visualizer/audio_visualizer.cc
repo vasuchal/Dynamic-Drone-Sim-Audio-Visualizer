@@ -13,11 +13,13 @@ namespace audio {
     void AudioVisualizerApp::draw() {
         ci::Color background_color("black");
         ci::gl::clear(background_color);
-        processor_.Display(y_coordinate_);
+        processor_.Display(y_coordinate_);                                      
+        is_playing_ = true;
     }
 
+    //TODO: help with pause and playing
     void AudioVisualizerApp::update() {
-        processor_.AdvanceOneFrame();
+        processor_.AdvanceOneFrame(is_playing_);
     }
 
     void AudioVisualizerApp::keyDown(ci::app::KeyEvent event) {
@@ -29,6 +31,13 @@ namespace audio {
 
             case ci::app::KeyEvent::KEY_3: {
                 y_coordinate_ = k3DYCoordinate;
+                break;
+            }
+
+            case ci::app::KeyEvent::KEY_1: {
+                is_playing_ = !is_playing_;
+                std::cout << "here";
+                std::cout << is_playing_;
                 break;
 
             }
