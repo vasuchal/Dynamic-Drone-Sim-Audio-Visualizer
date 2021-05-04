@@ -13,5 +13,9 @@ Set up Cinder and clone repo and build using given CMakeLists.txt. Executables f
 ### 2d visualizer
 ![](audio_vis_2d.gif)
 
+### Dynamic Dimension Transitioning
+![](audio_vis_dynamic.gif)
+
+
 
 
