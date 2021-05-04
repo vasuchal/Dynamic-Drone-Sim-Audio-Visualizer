@@ -11,5 +11,7 @@ Set up Cinder and clone repo and build using given CMakeLists.txt. Executables f
 ![](audio_vis_3d.gif)
 
 ###2d visualizer
+![](audio_vis_2d.gif)
+
 
 
