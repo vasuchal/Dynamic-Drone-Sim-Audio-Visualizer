@@ -7,5 +7,9 @@ It analyzes the magnitudes of frequencies and displays these energies through ch
 ##Set up
 Set up Cinder and clone repo and build using given CMakeLists.txt. Executables for the visualizer application and separate audio processing are already configured and can be used to run the visualization.
 
+###3d visualizer
+![](audio_vis_3d.gif)
+
+###2d visualizer
 
 
