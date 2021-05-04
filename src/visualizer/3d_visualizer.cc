@@ -3,18 +3,19 @@
 #include "cinder/gl/gl.h"
 
 namespace audio {
+    
     Visualizer3D::Visualizer3D() {
         x_coordinate_ = 1;
         z_coordinate_ = 1;
     }
     
-    void Visualizer3D::Draw(std::vector<float> magnitudes_of_freq) const{
+    void Visualizer3D::Draw(std::vector<float> magnitudes_of_freq, int y_coordinate) const{
         ci::gl::clear();
         ci::gl::enableDepthRead();
         ci::gl::enableDepthWrite();
 
         ci::CameraPersp cam;
-        cam.lookAt(glm::vec3(15 * cos((x_coordinate_ / 4)), 10, 15 * sin((z_coordinate_ / 4))), glm::vec3(0, 0, 0)); //TODO: rotate camera
+        cam.lookAt(glm::vec3(15 * cos((x_coordinate_ / 4)), y_coordinate, 15 * sin((z_coordinate_ / 4))), glm::vec3(0, 0, 0));
         ci::gl::setMatrices(cam);
     //TODO: cite and optimize performance
         float maxAngle = M_PI *
@@ -28,8 +29,7 @@ namespace audio {
             float h = Rescale(magnitudes_of_freq[i], 0, 0.01, 0,
                             2); //TODO: normalize using max of all slices, right now can reverse by doing minus as index is connected to position for code here so reversing loop changes nothing
             float h2 = Rescale(magnitudes_of_freq[i], 0, 0.01, 0, 1);
-            float y =
-                    fabs(cos(rel * M_PI + anim)) * h; //TODO: change this 1 variable to represent height, range from 0 to 2
+            float y = fabs(cos(rel * M_PI + anim)) * h; //TODO: change this 1 variable to represent height, range from 0 to 2
             float r = rel * 5; //TODO: makes radius more spread out, make this a constant //TODO: change this from 2 to 5
             ci::vec3 offset(r * cos(angle), y / 2, r * sin(angle)); //TODO: determines positioning of element
             ci::gl::pushModelMatrix();

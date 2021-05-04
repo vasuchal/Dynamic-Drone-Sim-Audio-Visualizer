@@ -11,7 +11,7 @@ namespace audio {
         /**
           * Works with draw function and will display visual components relating to the magnitude of freqs of audio at a given slice
           */
-        void Draw(std::vector<float> magnitudes_of_freq) const;
+        void Draw(std::vector<float> magnitudes_of_freq, int y_coordinate) const;
         void Update();
     private:
         float Rescale(float value, float init_low, float init_high, float new_low, float new_high) const;
