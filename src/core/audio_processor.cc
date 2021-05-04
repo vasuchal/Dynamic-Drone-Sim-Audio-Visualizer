@@ -1,16 +1,17 @@
 #include "cinder/audio/Context.h"
 #include "cinder/audio/audio.h"
 #include <core/audio_processor.h>
+#include "visualizer/2d_visualizer.h"
 #include "visualizer/3d_visualizer.h"
 #include "cinder/app/App.h"
 
 
 namespace audio {
-//TODO: shortening this (no putting cinder)
     using namespace cinder::audio;
     using cinder::app::KeyEvent;
     AudioProcessor::AudioProcessor(std::string file_path) {
         visualizer_ = Visualizer3D();
+        visualizer2d_ = Visualizer2D();
 
         audio::SourceFileRef sourceFile = audio::load(cinder::app::loadAsset(file_path));
         auto ctx = cinder::audio::Context::master();
@@ -29,13 +30,15 @@ namespace audio {
 
     AudioProcessor::AudioProcessor() = default;
 
-    void AudioProcessor::Display() {
-        visualizer_.Draw(magnitudes_of_freq_);
+    void AudioProcessor::Display(int y_coordinate) {
+        visualizer_.Draw(magnitudes_of_freq_, y_coordinate);
+//            Visualizer2D visualizer = Visualizer2D();
+//            visualizer.Draw(magnitudes_of_freq_);
     }
     
     void AudioProcessor::AdvanceOneFrame() {
         magnitudes_of_freq_ = spectral_->getMagSpectrum();
         visualizer_.Update();
     }
-    
+
 }
