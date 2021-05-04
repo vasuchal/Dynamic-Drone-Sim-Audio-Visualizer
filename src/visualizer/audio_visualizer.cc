@@ -20,5 +20,6 @@ namespace audio {
     }
     
     //TODO: audio visualizer class combining both functionalities, visual components class 
+    //TODO: loading in new audio files, better way than doing all at back
 } 
 
