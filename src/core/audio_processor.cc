@@ -11,7 +11,6 @@ namespace audio {
     using cinder::app::KeyEvent;
     AudioProcessor::AudioProcessor(std::string file_path) {
         visualizer_ = Visualizer3D();
-        visualizer2d_ = Visualizer2D();
 
         audio::SourceFileRef sourceFile = audio::load(cinder::app::loadAsset(file_path));
         auto ctx = audio::Context::master();
@@ -21,7 +20,7 @@ namespace audio {
         mBufferPlayer >> spectral_; //connecting an input to an output
         
         audio_output_ = audio::Voice::create(sourceFile);
-        audio_output_->start(); 
+        audio_output_->start();
         
         ctx->enable();
         mBufferPlayer->enable();
@@ -32,9 +31,6 @@ namespace audio {
 
     void AudioProcessor::Display(int y_coordinate) {
         visualizer_.Draw(magnitudes_of_freq_, y_coordinate);
-//            Visualizer2D visualizer = Visualizer2D();
-//            visualizer.Draw(magnitudes_of_freq_);
-//TODO: delete or implement
     }
     
     void AudioProcessor::AdvanceOneFrame(bool is_playing) {
@@ -45,7 +41,10 @@ namespace audio {
         } else {
             audio_output_->pause();
         }
-        
+
+        if (!audio_output_->isPlaying()) {
+            audio_output_->pause();
+        }
     }
 
 }

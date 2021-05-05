@@ -34,7 +34,6 @@ namespace audio {
         std::vector<float> magnitudes_of_freq_;
         cinder::audio::VoiceRef audio_output_;
         Visualizer3D visualizer_;
-        Visualizer2D visualizer2d_;
     };
 
 }  

@@ -5,7 +5,7 @@ namespace audio {
 
     using namespace cinder::audio;
     AudioVisualizerApp::AudioVisualizerApp() {
-        processor_ = AudioProcessor("MoBamba.wav");
+        processor_ = AudioProcessor(audio_file_name);
         ci::app::setWindowSize(kWindowSize, kWindowSize);
         y_coordinate_ = k3DYCoordinate;
     }
@@ -17,7 +17,6 @@ namespace audio {
         is_playing_ = true;
     }
 
-    //TODO: help with pause and playing
     void AudioVisualizerApp::update() {
         processor_.AdvanceOneFrame(is_playing_);
     }
@@ -34,10 +33,8 @@ namespace audio {
                 break;
             }
 
-            case ci::app::KeyEvent::KEY_1: {
+            case ci::app::KeyEvent::KEY_SPACE: {
                 is_playing_ = !is_playing_;
-                std::cout << "here";
-                std::cout << is_playing_;
                 break;
 
             }

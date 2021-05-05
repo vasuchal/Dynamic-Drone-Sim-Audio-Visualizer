@@ -10,7 +10,6 @@ namespace audio {
     }
     
     void Visualizer3D::Draw(std::vector<float> magnitudes_of_freq, int y_coordinate) const {
-        //TODO: magic numbers
         ci::gl::clear();
         ci::gl::enableDepthRead();
         ci::gl::enableDepthWrite();
